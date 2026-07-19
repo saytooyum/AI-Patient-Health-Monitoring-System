@@ -1,25 +1,19 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Project Banner">
-</p>
-
-<h1 align="center">🏥 Intelligent Patient Health Monitoring System</h1>
-
-<p align="center">
 An IoT-enabled Healthcare Monitoring Platform using <strong>ESP32</strong>, <strong>Flask</strong>, <strong>MySQL</strong>, and <strong>Bootstrap</strong>.
 </p>
-![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
-![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask)
-![MySQL](https://img.shields.io/badge/MySQL-Database-blue?logo=mysql)
-![ESP32](https://img.shields.io/badge/ESP32-IoT-success)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap)
-![License](https://img.shields.io/badge/License-MIT-green)
+
 <p align="center">
-
-An IoT-enabled Healthcare Monitoring Platform built using **ESP32**, **Flask**, **MySQL**, and **Bootstrap**.
-
+  <img src="https://img.shields.io/badge/Python-3.12-blue?logo=python" />
+  <img src="https://img.shields.io/badge/Flask-Web_Framework-black?logo=flask" />
+  <img src="https://img.shields.io/badge/MySQL-Database-blue?logo=mysql" />
+  <img src="https://img.shields.io/badge/ESP32-IoT-success" />
+  <img src="https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap" />
+  <img src="https://img.shields.io/badge/License-MIT-green" />
 </p>
 
----
+<p align="center">
+An IoT-enabled Healthcare Monitoring Platform built using <strong>ESP32</strong>, <strong>Flask</strong>, <strong>MySQL</strong>, and <strong>Bootstrap</strong>.
+</p>
 
 <p align="center">
 ⭐ If you like this project, consider giving it a star on GitHub!
