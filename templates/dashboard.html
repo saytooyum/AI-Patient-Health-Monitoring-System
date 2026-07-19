@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Intelligent Patient Health Monitoring System</title>
+
+   <!-- <meta http-equiv="refresh" content="20">-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
+
+     <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="/dashboard">
+            🏥 Intelligent Patient Monitoring
+        </a>
+
+        <div>
+
+            <a href="/dashboard" class="btn btn-light me-2">
+                Dashboard
+            </a>
+
+            <a href="/patients" class="btn btn-light me-2">
+                Patients
+            </a>
+
+            <a href="/add-patient" class="btn btn-success me-2">
+                Add Patient
+            </a>
+
+            <a href="/logout" class="btn btn-danger">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<div class="container mt-4">
+
+
+
+    <h1 class="page-title text-center mb-5">
+
+<i class="bi bi-hospital-fill text-primary"></i>
+
+Intelligent Patient Health Monitoring System
+
+</h1>
+<div class="card panel mb-4">
+
+    <div class="card-body">
+
+        <h3>
+            Welcome Doctor 👨‍⚕️
+        </h3>
+
+        <p class="text-muted">
+            Monitor patients in real time and review their latest health records.
+        </p>
+
+    </div>
+
+</div>
+
+    <!-- ========================= -->
+    <!-- Statistics Cards -->
+    <!-- ========================= -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5>Total Patients</h5>
+                    <h2 class="stat-number text-primary">
+    {{ total_patients }}
+</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5>Total Readings</h5>
+                    <h2>{{ total_readings }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5>Critical Cases</h5>
+                    <h2 class="text-danger">
+                        {{ critical_cases }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5>Average Heart Rate</h5>
+                    <h2>{{ avg_hr }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md">
+
+    <div class="card shadow text-center">
+
+        <div class="card-body">
+
+            <h5>🩸 Average SpO₂</h5>
+
+            <h2>{{ avg_spo2 }}%</h2>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ====================================== -->
+<!-- LIVE PATIENT MONITOR -->
+<!-- ====================================== -->
+
+{% if live_patient %}
+
+<div class="card shadow border-success mb-4">
+
+    <div class="card-header bg-success text-white">
+
+        <h4 class="mb-0">
+            🟢 LIVE PATIENT MONITOR
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <h5>Patient Details</h5>
+
+                <p>
+                    <strong>Code:</strong>
+                    {{ live_patient[0] }}
+                </p>
+
+                <p>
+                    <strong>Name:</strong>
+                    {{ live_patient[1] }}
+                </p>
+
+                <p>
+                    <strong>Age:</strong>
+                    {{ live_patient[2] }}
+                </p>
+
+                <p>
+                    <strong>Gender:</strong>
+                    {{ live_patient[3] }}
+                </p>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h5>Vital Signs</h5>
+
+                <p>
+                    ❤️ Heart Rate :
+                    <strong>{{ live_patient[4] }} BPM</strong>
+                </p>
+
+                <p>
+                    🩸 SpO₂ :
+                    <strong>{{ live_patient[5] }} %</strong>
+                </p>
+
+                <p>
+                    🌡 Temperature :
+                    <strong>{{ live_patient[6] }} °C</strong>
+                </p>
+
+                <p>
+                    📈 ECG :
+                    <strong>{{ live_patient[7] }}</strong>
+                </p>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h5>Risk Status</h5>
+
+                {% if live_patient[8] == "Normal" %}
+
+                    <span class="badge bg-success fs-5">
+                        Normal
+                    </span>
+
+                {% elif live_patient[8] == "Warning" %}
+
+                    <span class="badge bg-warning text-dark fs-5">
+                        Warning
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-danger fs-5">
+                        Critical
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h5>Monitoring</h5>
+
+                <p>
+
+                    Started At
+
+                </p>
+
+                <strong>
+
+                    {{ live_patient[9] }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+<!-- ====================================== -->
+<!-- CRITICAL ALERT PANEL -->
+<!-- ====================================== -->
+
+<div class="card border-danger shadow-lg mb-4">
+
+    <div class="card-header bg-danger text-white">
+
+        <h4 class="mb-0">
+            🚨 Critical Patient Alerts
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if critical_alerts %}
+
+            {% for patient in critical_alerts %}
+
+            <div class="alert alert-danger mb-3">
+
+                <h5>
+                    {{ patient[1] }}
+                    ({{ patient[0] }})
+                </h5>
+
+                <hr>
+
+                ❤️ Heart Rate :
+                <strong>{{ patient[2] }} BPM</strong>
+
+                <br>
+
+                🩸 SpO₂ :
+                <strong>{{ patient[3] }} %</strong>
+
+                <br>
+
+                🌡 Temperature :
+                <strong>{{ patient[4] }} °C</strong>
+
+                <br><br>
+
+                <strong>
+                    Immediate Medical Attention Required
+                </strong>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="alert alert-success">
+
+                ✅ No Critical Patients
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+<div class="card shadow mb-4">
+
+    <div class="card-header bg-dark text-white">
+
+        <h4 class="mb-0">
+            🚨 Patient Priority Queue
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Priority</th>
+                    <th>Patient</th>
+                    <th>Heart Rate</th>
+                    <th>SpO₂</th>
+                    <th>Temperature</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for patient in priority_patients %}
+
+                <tr>
+
+                    <td>
+
+                        {% if patient[6] == "Critical" %}
+
+                            🔴 HIGH
+
+                        {% elif patient[6] == "Warning" %}
+
+                            🟡 MEDIUM
+
+                        {% else %}
+
+                            🟢 LOW
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <strong>{{ patient[1] }}</strong><br>
+
+                        {{ patient[2] }}
+
+                    </td>
+
+                    <td>{{ patient[3] }} BPM</td>
+
+                    <td>{{ patient[4] }} %</td>
+
+                    <td>{{ patient[5] }} °C</td>
+
+                    <td>
+
+                        {% if patient[6] == "Critical" %}
+
+                            <span class="badge bg-danger">
+                                Critical
+                            </span>
+
+                        {% elif patient[6] == "Warning" %}
+
+                            <span class="badge bg-warning text-dark">
+                                Warning
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-success">
+                                Normal
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+    <!--notifications panel-->
+    <div class="card panel">
+
+    <div class="card-header bg-warning">
+
+        🔔 Notifications
+
+    </div>
+
+    <div class="card-body">
+
+        <ul class="mb-0">
+
+            <li>
+                {{ critical_cases }} Critical Patients
+            </li>
+
+            <li>
+                {{ total_readings }} Total Readings Recorded
+            </li>
+
+            <li>
+                Dashboard Updated Successfully
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+     <!--HOSPITAL STATUS-->
+     <!-------------------->
+        <div class="card panel mb-4">
+
+    <div class="card-header bg-primary text-white">
+        <i class="bi bi-clipboard2-pulse-fill"></i>
+        Hospital Status
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center">
+
+            <div class="col-md-4">
+
+                <h5 class="text-success">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Normal
+                </h5>
+
+                <h2 class="text-success">
+                    {{ normal_count }}
+                </h2>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5 class="text-warning">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    Warning
+                </h5>
+
+                <h2 class="text-warning">
+
+                    {{ warning_count }}
+
+                </h2>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5 class="text-danger">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                    Critical
+                </h5>
+
+                <h2 class="text-danger">
+                    {{ critical_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- ========================= -->
+    <!-- Patient Records Table -->
+    <!-- ========================= -->
+
+    <div class="card shadow mb-4">
+
+        <div class="card-header bg-primary text-white">
+            <i class="bi bi-table"></i>
+
+Recent Patient Monitoring Records
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Gender</th>
+    <th>❤️ Heart Rate</th>
+    <th>🩸 SpO₂</th>
+    <th>⚡ ECG</th>
+    <th>🌡 Temperature</th>
+    <th>🚨 Risk Status</th>
+    <th>🕒 Timestamp</th>
+</tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for patient in patient_records %}
+
+                <tr>
+
+                    <td>{{ patient[0] }}</td>
+                    <td>{{ patient[1] }}</td>
+                    <td>{{ patient[2] }}</td>
+                    <td>{{ patient[3] }}</td>
+                    <td>{{ patient[4] }} BPM</td>
+
+<td>{{ patient[5] }}%</td>
+
+<td>{{ patient[6] }}</td>
+
+<td>{{ patient[7] }} °C</td>
+
+<td>
+
+    {% if patient[8] == "Normal" %}
+        <span class="badge bg-success">
+            Normal
+        </span>
+
+    {% elif patient[8] == "Warning" %}
+        <span class="badge bg-warning text-dark">
+            Warning
+        </span>
+
+    {% else %}
+        <span class="badge bg-danger">
+            Critical
+        </span>
+
+    {% endif %}
+
+</td>
+
+<td>{{ patient[9] }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- Heart Rate Graph -->
+    <!-- ========================= -->
+
+    <div class="row">
+
+    <!-- Heart Rate Chart -->
+    <div class="col-lg-8">
+
+        <div class="card panel mb-4">
+
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-heart-pulse-fill"></i>
+                Heart Rate Trend
+            </div>
+
+            <div class="card-body">
+
+                <div class="chart-card">
+                    <canvas id="heartRateChart"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- ========================= -->
+    <!-- Temperature Graph -->
+    <!-- ========================= -->
+
+    <div class="card shadow mb-4">
+
+        <div class="card-header bg-warning text-dark">
+
+    <i class="bi bi-thermometer-half"></i>
+
+    Temperature Trend
+
+</div>
+
+        <div class="card-body">
+            <div class="chart-card">
+
+    <canvas id="temperatureChart"></canvas>
+
+</div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- Heart Rate Chart Script -->
+<!-- ========================= -->
+
+<script>
+
+fetch('/heart-rate-data')
+.then(response => response.json())
+.then(data => {
+
+    const ctx =
+        document.getElementById('heartRateChart');
+
+    new Chart(ctx, {
+
+        type: 'line',
+
+        data: {
+
+            labels: data.labels,
+
+            datasets: [{
+
+                label: 'Heart Rate (BPM)',
+
+                data: data.values,
+
+                borderWidth: 3,
+
+                tension: 0.4
+
+            }]
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
+
+});
+
+</script>
+
+<!-- ========================= -->
+<!-- Temperature Chart Script -->
+<!-- ========================= -->
+
+<script>
+
+fetch('/temperature-data')
+.then(response => response.json())
+.then(data => {
+
+    const ctx =
+        document.getElementById('temperatureChart');
+
+    new Chart(ctx, {
+
+        type: 'line',
+
+        data: {
+
+            labels: data.labels,
+
+            datasets: [{
+
+                label: 'Temperature (°C)',
+
+                data: data.values,
+
+                borderWidth: 3,
+
+                tension: 0.4
+
+            }]
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+/* ===========================
+   GOOGLE FONT
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#f5f7fb;
+
+    margin:0;
+
+    padding:0;
+}
+
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar{
+
+    background:#0d6efd;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
+}
+
+.navbar-brand{
+
+    font-size:22px;
+
+    font-weight:600;
+}
+
+.navbar .btn{
+
+    border-radius:10px;
+}
+
+
+/* ===========================
+   PAGE TITLE
+=========================== */
+
+.page-title{
+
+    font-size:32px;
+
+    font-weight:600;
+
+    color:#333;
+}
+
+
+/* ===========================
+   CARDS
+=========================== */
+
+.stat-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    transition:.3s;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.stat-icon{
+
+    font-size:40px;
+
+    margin-bottom:10px;
+}
+
+.stat-number{
+
+    font-size:36px;
+
+    font-weight:700;
+}
+
+
+/* ===========================
+   PANELS
+=========================== */
+
+.panel{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    margin-top:25px;
+}
+
+.panel-header{
+
+    font-weight:600;
+
+    font-size:18px;
+}
+
+
+/* ===========================
+   TABLES
+=========================== */
+
+.table{
+
+    margin-bottom:0;
+}
+
+.table thead{
+
+    background:#0d6efd;
+
+    color:white;
+}
+
+.table-hover tbody tr:hover{
+
+    background:#eef5ff;
+}
+
+
+/* ===========================
+   BADGES
+=========================== */
+
+.badge{
+
+    padding:8px 14px;
+
+    font-size:13px;
+
+    border-radius:30px;
+}
+
+
+/* ===========================
+   CHARTS
+=========================== */
+
+.chart-card{
+
+    height:420px;
+}
+
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn{
+
+    border-radius:10px;
+
+    font-weight:500;
+}
